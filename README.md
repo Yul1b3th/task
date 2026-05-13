@@ -1,59 +1,209 @@
-# Task
+# 🧩 Task App (Angular Modern Architecture)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.11.
+Proyecto base para practicar **Angular moderno** con arquitectura escalable basada en:
 
-## Development server
+- Signals
+- Facade pattern
+- Feature-based structure
+- Mock + HTTP API abstraction
+- Store pattern (estado reactivo)
+- ViewModel (VM)
+- Mutators / Hydration / Reset / Snapshots
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
+## 📦 Objetivo del proyecto
+
+Implementar un CRUD de **Tasks** usando una arquitectura profesional similar a sistemas reales (tipo ERP / backoffice), separando:
+
+- UI
+- Estado
+- Lógica de negocio
+- Acceso a datos
+- Mapeo de datos
+
+---
+
+## 🏗️ Arquitectura
+
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+src/app/
+│
+├── core/
+│   ├── api/          # Contratos (abstract API)
+│   ├── http/         # Implementación real HttpClient
+│   ├── mock/         # Mock backend (simulación)
+│   └── models/       # Tipos globales
+│
+├── features/
+│   └── task/
+│       ├── feature/  # Casos de uso (CRUD business logic)
+│       ├── store/    # Signals + estado + mutators + VM
+│       ├── facade/   # API única para componentes
+│       ├── pages/    # Containers (smart components)
+│       ├── components/# UI components (dumb components)
+│       └── mappers/  # mapping DTO ↔ model
+│
+└── shared/
+├── ui/
+├── utils/
+└── constants/
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
+## 🧠 Flujo de datos
+
 ```
 
-## Building
+Component
+↓
+Facade
+↓
+Feature (casos de uso)
+↓
+Store (signals)
+↓
+API (mock o HTTP)
 
-To build the project run:
-
-```bash
-ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🧩 Conceptos implementados
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### 1. Signals Store
 
-```bash
-ng test
-```
+Gestión del estado reactivo:
 
-## Running end-to-end tests
+- state()
+- computed()
+- mutators()
+- reset()
+- hydrate()
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+### 2. ViewModel (VM)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Datos listos para UI:
 
-## Additional Resources
+- filtros aplicados
+- listas derivadas
+- estados derivados (loading, empty, error)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+### 3. Facade Pattern
+
+Capa única de acceso desde Angular:
+
+- encapsula store + feature
+- evita lógica en componentes
+
+---
+
+### 4. Feature Layer
+
+Contiene lógica de negocio:
+
+- createTask
+- updateTask
+- deleteTask
+- loadTasks
+
+---
+
+### 5. API Layer
+
+#### Abstract API
+
+Define contrato:
+
+- task.api.ts
+
+#### Implementaciones:
+
+- task.http.service.ts → backend real
+- task.mock.service.ts → datos simulados
+
+---
+
+### 6. Snapshots
+
+Permite:
+
+- comparar estado anterior vs actual
+- detectar cambios
+- control de persistencia
+
+---
+
+## 📌 CRUD del proyecto
+
+| Acción      | Capa        |
+| ----------- | ----------- |
+| Create Task | Feature     |
+| Read Tasks  | Store + API |
+| Update Task | Feature     |
+| Delete Task | Feature     |
+
+---
+
+## 🔁 Mock system
+
+El mock simula backend:
+
+- delay artificial
+- persistencia en memoria
+- IDs autogenerados
+- simulación de errores opcional
+
+---
+
+## 🧪 Recomendación de desarrollo
+
+Orden recomendado:
+
+1. models (Task)
+2. api (contract)
+3. mock service
+4. store (signals)
+5. feature (CRUD logic)
+6. facade
+7. components UI
+
+---
+
+## 🚀 Tecnologías
+
+- Angular 21
+- Signals
+- RxJS (solo API layer)
+- TypeScript strict mode
+- Standalone components
+- Angular control flow (@if, @for)
+
+---
+
+## 🎯 Resultado esperado
+
+Un CRUD limpio donde:
+
+- el componente no tiene lógica
+- el estado es centralizado
+- la UI es reactiva
+- el mock puede cambiarse por backend sin tocar UI
+- la arquitectura escala fácilmente
+
+---
+
+## 📌 Nota
+
+Este proyecto es una base de entrenamiento para migrar mentalidad de:
+
+❌ service-driven architecture  
+➡️  
+✅ feature + store + facade architecture
