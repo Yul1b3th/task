@@ -1,0 +1,106 @@
+<!-- task-create.html -->
+
+<section class="container">
+  <div class="flex items-center justify-between">
+    <h1>Create Task</h1>
+
+    <a mat-button routerLink="/tasks"> Back </a>
+  </div>
+
+  <form
+    class="flex gap-4"
+    style="flex-direction: column; margin-top: 2rem"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+  >
+    <!-- TITLE -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Title</mat-label>
+
+      <input matInput type="text" formControlName="title" />
+
+      @if (form.controls.title.hasError('required')) {
+        <mat-error> Title is required </mat-error>
+      }
+
+      @if (form.controls.title.hasError('minlength')) {
+        <mat-error> Minimum 3 characters </mat-error>
+      }
+    </mat-form-field>
+
+    <!-- DESCRIPTION -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Description</mat-label>
+
+      <textarea matInput rows="5" formControlName="description"></textarea>
+
+      @if (form.controls.description.hasError('required')) {
+        <mat-error> Description is required </mat-error>
+      }
+    </mat-form-field>
+
+    <!-- STATUS -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Status</mat-label>
+
+      <mat-select formControlName="status">
+        @for (status of statuses; track status) {
+          <mat-option [value]="status">
+            {{ status }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- PRIORITY -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Priority</mat-label>
+
+      <mat-select formControlName="priority">
+        @for (priority of priorities; track priority) {
+          <mat-option [value]="priority">
+            {{ priority }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- DUE DATE -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Due date</mat-label>
+
+      <input matInput [matDatepicker]="picker" formControlName="dueDate" />
+
+      <mat-datepicker-toggle matIconSuffix [for]="picker" />
+
+      <mat-datepicker #picker />
+    </mat-form-field>
+
+    <!-- CATEGORIES -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Categories</mat-label>
+
+      <mat-select multiple formControlName="categories">
+        @for (category of categories; track category.id) {
+          <mat-option [value]="category.id">
+            {{ category.label }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- TERMS -->
+    <mat-checkbox formControlName="acceptedTerms"> Accept terms and conditions </mat-checkbox>
+
+    @if (form.controls.acceptedTerms.hasError('required')) {
+      <small> You must accept the terms </small>
+    }
+
+    <!-- ACTIONS -->
+    <div class="flex gap-2">
+      <button mat-raised-button type="submit">Save task</button>
+
+      <button mat-button type="button" routerLink="/tasks">Cancel</button>
+    </div>
+  </form>
+</section>

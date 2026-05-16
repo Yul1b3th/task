@@ -1,0 +1,19 @@
+<!-- <pre>{{ product | json }}</pre> -->
+
+  <div>
+    <a [routerLink]="['/product-details', 452]">
+      <img src="https://dummyimage.com/720x400" alt="">
+    </a>
+    <div>
+      <h3>CATEGORY</h3>
+      <h2>
+        <a [routerLink]="['/product-details', 452]">{{ product.title }}</a>
+      </h2>
+      <button (click)="onAddToCart(product)">Add cart</button>
+      <p>$16.00</p>
+      <!-- @for (item of rating(); track $index) {
+        <p>{{ item }}</p>
+      } -->
+    </div>
+  </div>
+

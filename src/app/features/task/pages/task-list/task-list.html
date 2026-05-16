@@ -1,0 +1,79 @@
+<!-- task-list.component.html -->
+
+<section class="task-list">
+  <header class="task-list__header">
+    <h1>Tasks</h1>
+    <a routerLink="/tasks/new">Nueva tarea</a>
+  </header>
+
+  <section class="task-list__filters">
+    <button mat-button (click)="filterBy('ALL')">All</button>
+    <button mat-button (click)="filterBy('PENDING')">Pending</button>
+    <button mat-button (click)="filterBy('IN_PROGRESS')">In Progress</button>
+    <button mat-button (click)="filterBy('COMPLETED')">Completed</button>
+  </section>
+
+  @if (loading()) {
+    <p>Cargando tareas...</p>
+  }
+
+  @if (error()) {
+    <p>{{ error() }}</p>
+  }
+
+  @if (!loading() && tasks().length === 0) {
+    <p>No hay tareas</p>
+  }
+
+  @if (tasks().length > 0) {
+    <!-- Vinculamos las propiedades nativas de matSort para mantener la UI sincronizada -->
+    <table mat-table [dataSource]="tasks()" matSort>
+      <!-- Title -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task.title }}
+        </td>
+      </ng-container>
+
+      <!-- Status -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task.status }}
+        </td>
+      </ng-container>
+
+      <!-- Priority -->
+      <ng-container matColumnDef="priority">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task.priority }}
+        </td>
+      </ng-container>
+
+      <!-- Due -->
+      <ng-container matColumnDef="dueDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Due</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task.dueDate | date: 'shortDate' }}
+        </td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let task">
+          <a [routerLink]="['/tasks', task.id]">Ver</a>
+          |
+          <a [routerLink]="['/tasks/edit', task.id]">Editar</a>
+          |
+          <button (click)="deleteTask(task.id)">Eliminar</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  }
+</section>

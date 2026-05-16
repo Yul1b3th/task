@@ -1,0 +1,10 @@
+<aside class="task-sidenav">
+  <nav>
+    @for (item of items(); track item.path) {
+      <a [routerLink]="item.path" routerLinkActive="active" class="nav-item">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+</aside>

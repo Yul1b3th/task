@@ -3,6 +3,26 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@dashboard": ["./src/app/admin-dashboard"],
+      "@dashboard/*": ["./src/app/admin-dashboard/*"],
+      "@auth": ["./src/app/core/auth"],
+      "@auth/*": ["./src/app/core/auth/*"],
+      "@core": ["./src/app/core"],
+      "@core/*": ["./src/app/core/*"],
+      "@features": ["./src/app/features"],
+      "@features/*": ["./src/app/features/*"],
+      "@pages": ["./src/app/pages"],
+      "@pages/*": ["./src/app/pages/*"],
+      "@products": ["./src/app/products"],
+      "@products/*": ["./src/app/products/*"],
+      "@shared": ["./src/app/shared"],
+      "@shared/*": ["./src/app/shared/*"],
+      "@store-front/*": ["./src/app/store-front/*"],
+      "@utils": ["./src/app/utils"],
+      "@utils/*": ["./src/app/utils/*"],
+      "@env/*": ["./src/environments/*"]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
