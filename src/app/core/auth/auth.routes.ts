@@ -1,3 +1,5 @@
+// auth.routes.ts
+
 import { Routes } from '@angular/router';
 import { AuthLayout } from './layout/auth-layout/auth-layout';
 

@@ -5,5 +5,5 @@ export interface NavigationItem {
   path: string;
   icon?: string;
   exact?: boolean;
-  showInSidebar?: boolean;
+  visible?: boolean;
 }

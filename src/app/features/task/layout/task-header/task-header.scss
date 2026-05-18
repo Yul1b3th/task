@@ -68,3 +68,15 @@
 .icon-btn:hover {
   background: rgba(0, 0, 0, 0.05);
 }
+
+.nav__brand {
+  flex-shrink: 0;
+
+  font-size: 1.2rem;
+  font-weight: 700;
+
+  text-decoration: none;
+  letter-spacing: -0.02em;
+
+  color: #1e1a1e;
+}

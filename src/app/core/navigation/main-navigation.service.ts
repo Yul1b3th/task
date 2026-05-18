@@ -1,3 +1,5 @@
+// main-navigation.service.ts
+
 import { Injectable } from '@angular/core';
 import { Routes } from '@angular/router';
 import { signal, computed } from '@angular/core';
@@ -16,11 +18,13 @@ export class NavigationService {
       for (const route of routes) {
         const nav = route.data?.['navigation'];
 
-        if (nav) {
+        if (nav && nav.visible !== false) {
           items.push({
             label: nav.label,
             path: nav.path,
+            icon: nav.icon,
             exact: nav.exact ?? false,
+            visible: nav.visible ?? true,
           });
         }
 

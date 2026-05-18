@@ -4,10 +4,12 @@ import { Routes } from '@angular/router';
 import { TaskApi } from './data/task.api';
 import { TaskMockService } from './data/task.mock';
 import { TaskFacade } from './data/task.facade';
+import { TaskLayout } from './layout/task-layout/task-layout';
 
 export const taskRoutes: Routes = [
   {
     path: '',
+    component: TaskLayout,
     providers: [
       TaskFacade,
       {
@@ -25,7 +27,7 @@ export const taskRoutes: Routes = [
             label: 'List',
             icon: 'list',
             path: '/tasks',
-            showInSidebar: true,
+            visible: true,
           },
         },
       },
@@ -38,19 +40,17 @@ export const taskRoutes: Routes = [
             label: 'New Task',
             icon: 'add',
             path: '/tasks/new',
-            showInSidebar: true,
+            visible: true,
           },
         },
       },
-
-      {
-        path: ':id',
-        loadComponent: () => import('./pages/task-detail/task-detail'),
-      },
-
       {
         path: 'edit/:id',
         loadComponent: () => import('./pages/task-edit/task-edit'),
+      },
+      {
+        path: ':id',
+        loadComponent: () => import('./pages/task-detail/task-detail'),
       },
     ],
   },

@@ -18,7 +18,7 @@ export class NavigationService {
       for (const route of routes) {
         const nav = route.data?.['navigation'];
 
-        if (nav && nav.showInSidebar !== false) {
+        if (nav && nav.visible !== false) {
           items.push({
             label: nav.label,
             path: nav.path,

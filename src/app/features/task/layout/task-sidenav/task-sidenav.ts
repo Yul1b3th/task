@@ -1,5 +1,3 @@
-// task-sidenav.ts
-
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
