@@ -8,7 +8,7 @@ Proyecto base para practicar **Angular moderno** con arquitectura escalable basa
 - Mock + HTTP API abstraction
 - Store pattern (estado reactivo)
 - ViewModel (VM)
-- Mutators / Hydration / Reset / Snapshots
+- Mutators / Reset / Snapshots
 
 ---
 
@@ -24,6 +24,17 @@ Implementar un CRUD de **Tasks** usando una arquitectura profesional similar a s
 
 ---
 
+## 💻 Tecnologías Utilizadas
+
+- [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
+- [SCSS](https://sass-lang.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Angular CLI](https://angular.dev/) version 21.2.11
+- [Material](https://material.angular.dev/) version 21.2.10
+- [RxJs](https://rxjs.dev/) version 7.8.0
+
+---
+
 ## 🏗️ Arquitectura
 
 ```
@@ -31,24 +42,38 @@ Implementar un CRUD de **Tasks** usando una arquitectura profesional similar a s
 src/app/
 │
 ├── core/
-│   ├── api/          # Contratos (abstract API)
-│   ├── http/         # Implementación real HttpClient
-│   ├── mock/         # Mock backend (simulación)
-│   └── models/       # Tipos globales
 │
 ├── features/
 │   └── task/
-│       ├── feature/  # Casos de uso (CRUD business logic)
-│       ├── store/    # Signals + estado + mutators + VM
-│       ├── facade/   # API única para componentes
-│       ├── pages/    # Containers (smart components)
-│       ├── components/# UI components (dumb components)
-│       └── mappers/  # mapping DTO ↔ model
+│       ├── data/
+│       │   ├── task.api.ts
+│       │   ├── task.facade.ts
+│       │   ├── task.http.ts
+│       │   ├── task.mock.ts
+│       │   └── task.store.ts
+│       ├── layout/
+│       │   ├── task-footer/
+│       │   ├── task-header/
+│       │   ├── task-layout/
+│       │   │   ├── task-layout.html
+│       │   │   ├── task-layout.scss
+│       │   │   └── task-layout.ts
+│       │   └── task-sidenav/
+│       ├── navigation/
+│       │   ├── task-navigation.service.ts
+│       │   ├── task-navigation.types.ts
+│       │   └── task.navigation.ts
+│       ├── pages/
+│       │   ├── task-create/
+│       │   ├── task-detail/
+│       │   ├── task-edit/
+│       │   └── task-list/
+│       ├── task.dto.ts
+│       ├── task.mapper.ts
+│       ├── task.routes.ts
+│       └── task.types.ts
 │
 └── shared/
-├── ui/
-├── utils/
-└── constants/
 
 ```
 
@@ -82,7 +107,6 @@ Gestión del estado reactivo:
 - computed()
 - mutators()
 - reset()
-- hydrate()
 
 ---
 
@@ -126,8 +150,8 @@ Define contrato:
 
 #### Implementaciones:
 
-- task.http.service.ts → backend real
-- task.mock.service.ts → datos simulados
+- task.http.ts → backend real
+- task.mock.ts → datos simulados
 
 ---
 
@@ -174,17 +198,6 @@ Orden recomendado:
 5. feature (CRUD logic)
 6. facade
 7. components UI
-
----
-
-## 🚀 Tecnologías
-
-- Angular 21
-- Signals
-- RxJS (solo API layer)
-- TypeScript strict mode
-- Standalone components
-- Angular control flow (@if, @for)
 
 ---
 
