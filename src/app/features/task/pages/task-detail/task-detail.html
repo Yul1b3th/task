@@ -1,1 +1,49 @@
-<p>task-detail works!</p>
+<section class="container">
+  <header class="flex items-center justify-between">
+    <h1>Task Detail</h1>
+    <a mat-button routerLink="/tasks">Back</a>
+  </header>
+
+  <!-- Usamos el selector loading() de la Facade -->
+  @if (loading()) {
+    <p>Loading...</p>
+  }
+
+  <!-- Guardamos el valor del Signal task() en una variable local del template -->
+  @let currentTask = task();
+
+  @if (currentTask) {
+    <div class="flex" style="flex-direction: column; gap: 1rem; margin-top: 2rem">
+      <h2>{{ currentTask.title }}</h2>
+
+      <p><strong>Description:</strong> {{ currentTask.description }}</p>
+
+      <p><strong>Status:</strong> {{ currentTask.status }}</p>
+
+      <p><strong>Priority:</strong> {{ currentTask.priority }}</p>
+
+      <p>
+        <strong>Due date:</strong>
+        {{ currentTask.dueDate | date: 'shortDate' }}
+      </p>
+
+      <p>
+        <strong>Categories:</strong>
+        @for (c of currentTask.categories; track c.id) {
+          <span>{{ c.label }}</span>
+        }
+      </p>
+
+      <div class="flex gap-2">
+        <a mat-raised-button color="primary" [routerLink]="['/tasks/edit', currentTask.id]">
+          Edit
+        </a>
+        <a mat-button routerLink="/tasks">Back</a>
+      </div>
+    </div>
+  }
+
+  @if (!loading() && !currentTask) {
+    <p>Task not found</p>
+  }
+</section>
